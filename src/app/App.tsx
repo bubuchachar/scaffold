@@ -53,11 +53,13 @@ function App() {
   // Board creation result
   const [boardData, setBoardData] = useState<BoardData | null>(null);
   
-  // Check if user just came back from Trello authorization
-  useEffect(() => {
+// Check if user just came back from Trello authorization
+useEffect(() => {
+  const checkAuthAndRestore = () => {
     // Check if authorized AND we have saved state
     if (isAuthorized() && localStorage.getItem('scaffold_wizard_state')) {
       try {
+        console.log('🔄 Detected authorization, restoring state...');
         // Restore wizard state
         const savedState = JSON.parse(localStorage.getItem('scaffold_wizard_state')!);
         setWizardState(savedState);
@@ -72,7 +74,23 @@ function App() {
         localStorage.removeItem('scaffold_wizard_state');
       }
     }
-  }, []);
+  };
+
+  // Check on mount
+  checkAuthAndRestore();
+  
+  // Also check when window regains focus (user returns from popup)
+  const handleFocus = () => {
+    console.log('👀 Window focused, checking auth...');
+    checkAuthAndRestore();
+  };
+  
+  window.addEventListener('focus', handleFocus);
+  
+  return () => {
+    window.removeEventListener('focus', handleFocus);
+  };
+}, []);
   
   // Update wizard state helper
   const updateWizardState = (updates: Partial<WizardState>) => {
