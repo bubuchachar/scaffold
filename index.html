@@ -9,10 +9,13 @@
   <body>
     <div id="root"></div>
     
-    <!-- Load Trello BEFORE your app (blocking) -->
+    <!-- Load jQuery FIRST (required by Trello) -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    
+    <!-- Then load Trello client -->
     <script src="https://trello.com/1/client.js?key=3561558d3c24e495d9d9e456cec41926"></script>
     
-    <!-- Then load your app -->
+    <!-- Finally load your React app -->
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
