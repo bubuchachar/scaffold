@@ -4,13 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Scaffold - UX Workflow Installer for Trello</title>
-    
-    <!-- Trello Client Library -->
-    <script src="https://trello.com/1/client.js?key=3561558d3c24e495d9d9e456cec41926"></script>
   </head>
 
   <body>
     <div id="root"></div>
+    
+    <!-- Load Trello BEFORE your app (blocking) -->
+    <script src="https://trello.com/1/client.js?key=3561558d3c24e495d9d9e456cec41926"></script>
+    
+    <!-- Then load your app -->
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
