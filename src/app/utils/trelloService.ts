@@ -48,7 +48,7 @@ export const authorizeTrello = (): Promise<boolean> => {
         read: true,
         write: true,
       },
-      expiration: '1hour',
+      expiration: 'never',  // Test if parameter works at all
       return_url: window.location.origin,
       success: () => {
         console.log('✅ Trello authorization successful');
