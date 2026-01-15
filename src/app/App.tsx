@@ -10,8 +10,9 @@ import { WizardTrelloAuth } from "./components/wizard/WizardTrelloAuth";
 import { WizardLoading } from "./components/wizard/WizardLoading";
 import { WizardSuccess } from "./components/wizard/WizardSuccess";
 import { WizardError } from "./components/wizard/WizardError";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "./components/ui/button";
+import { isAuthorized } from "./utils/trelloService";
 
 type View = "landing" | "styleguide" | "wizard-2" | "wizard-3" | "wizard-4" | "wizard-5" | "wizard-6" | "preview" | "trello-auth" | "loading" | "success" | "error";
 
@@ -51,6 +52,27 @@ function App() {
   
   // Board creation result
   const [boardData, setBoardData] = useState<BoardData | null>(null);
+  
+  // Check if user just came back from Trello authorization
+  useEffect(() => {
+    // Check if authorized AND we have saved state
+    if (isAuthorized() && localStorage.getItem('scaffold_wizard_state')) {
+      try {
+        // Restore wizard state
+        const savedState = JSON.parse(localStorage.getItem('scaffold_wizard_state')!);
+        setWizardState(savedState);
+        
+        // Clear saved state
+        localStorage.removeItem('scaffold_wizard_state');
+        
+        // Go directly to loading screen
+        setCurrentView('loading');
+      } catch (err) {
+        console.error('Failed to restore wizard state:', err);
+        localStorage.removeItem('scaffold_wizard_state');
+      }
+    }
+  }, []);
   
   // Update wizard state helper
   const updateWizardState = (updates: Partial<WizardState>) => {
@@ -132,6 +154,7 @@ function App() {
         <WizardTrelloAuth 
           onBack={() => setCurrentView("preview")}
           onAuthorize={() => setCurrentView("loading")}
+          wizardState={wizardState}
         />
       )}
       {currentView === "loading" && (
