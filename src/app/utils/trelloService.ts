@@ -9,6 +9,7 @@ declare global {
     Trello: {
       authorize: (options: {
         name: string;
+        type?: string;  // ← ADDED THIS
         scope: { read: string; write: string } | { read: boolean; write: boolean };
         expiration: string;
         success: () => void;
@@ -41,11 +42,12 @@ export const authorizeTrello = (): Promise<boolean> => {
 
     window.Trello.authorize({
       name: 'Scaffold - UX Workflow Installer',
+      type: 'popup',
       scope: {
-        read: 'own',  // Only boards we create
-        write: 'own', // Only write to our boards
+        read: true,
+        write: true,
       },
-      expiration: '1day', // 24 hour expiration
+      expiration: '1hour',
       success: () => {
         console.log('✅ Trello authorization successful');
         resolve(true);
@@ -84,9 +86,9 @@ export const createCompleteBoard = async (
     console.log('📋 Creating board:', projectName);
     const board = await window.Trello.post('/boards', {
       name: projectName || 'UX Project Board',
-      defaultLists: false, // Don't create default lists
-      prefs_permissionLevel: 'private', // Start as private
-      prefs_background: 'blue', // Nice blue background
+      defaultLists: false,
+      prefs_permissionLevel: 'private',
+      prefs_background: 'blue',
     });
 
     const boardId = board.id;
@@ -163,106 +165,4 @@ This board was created by Scaffold to give your team a ready-to-run workflow.
 **1. Work through phases left to right**
 Each column represents a phase of your project. Complete cards in order.
 
-**2. Use role labels to find your tasks**
-- 🟣 Purple = PM tasks
-- 🔵 Blue = UXR tasks  
-- 🟢 Green = UI tasks
-- 🟡 Yellow = Everyone
-
-**3. Definition of Done**
-Each card has a checklist. Complete all items before moving on.
-
-**4. Link your work**
-When you finish a card, paste your deliverable link (Figma, Google Docs, etc.) in the card description.
-
-**Quick rule:** No link = not ready for review.
-
-## Decision Log
-
-Use the "Decision Log" card to track important choices your team makes. Document:
-- What you decided
-- Why you chose it
-- What alternatives you considered
-
-This helps with handoffs and grading!
-
----
-
-**Need help?** Check out the tooltips on each card for guidance.
-
-**Questions?** Ask in card comments so context stays together.
-
-Let's ship this! 🚀`,
-      idList: listMap['Admin'],
-      pos: 'top' // Put it at the top
-    });
-
-    // 6. Create Decision Log card
-    console.log('📋 Creating Decision Log card...');
-    await window.Trello.post('/cards', {
-      name: '📋 Decision Log',
-      desc: `# Decision Log
-
-Track major decisions here to maintain context.
-
-## Format:
-**Decision:** What did we decide?
-**Date:** When?
-**Rationale:** Why?
-**Alternatives:** What else did we consider?
-**Impact:** What does this affect?
-
----
-
-## Example:
-
-**Decision:** Use Figma for all design work
-**Date:** Jan 15, 2026
-**Rationale:** Team already familiar, good for collaboration, free for students
-**Alternatives:** Adobe XD, Sketch
-**Impact:** All designers need Figma accounts
-
----
-
-## Your Decisions:
-
-(Add yours below)`,
-      idList: listMap['Admin'],
-      pos: 'bottom'
-    });
-
-    // 7. Invite team members if provided
-    if (teamEmails && teamEmails.trim()) {
-      console.log('📧 Inviting team members...');
-      const emails = teamEmails.split(',').map(e => e.trim()).filter(Boolean);
-      
-      for (const email of emails) {
-        try {
-          await window.Trello.post(`/boards/${boardId}/members`, {
-            email: email,
-            type: 'normal' // Regular member, not admin
-          });
-          console.log('✅ Invited:', email);
-        } catch (error) {
-          console.warn('⚠️ Could not invite:', email, error);
-          // Continue with other invites even if one fails
-        }
-      }
-    }
-
-    console.log('🎉 Board creation complete!');
-
-    return {
-      boardId,
-      boardUrl,
-      boardName: projectName || 'UX Project Board',
-      listsCreated: phases.length,
-      cardsCreated: cards.length + 2, // +2 for Read me first + Decision Log
-      labelsCreated: labels.length
-    };
-
-  } catch (error) {
-    console.error('❌ Error creating board:', error);
-    throw error;
-  }
-};
+**2. Use role labels to find your t
