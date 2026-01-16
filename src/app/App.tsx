@@ -185,17 +185,19 @@ function App() {
         />
       )}
       {currentView === "loading" && (
-        <WizardLoading 
-          projectName={wizardState.projectName}
-          roles={wizardState.roles}
-          teamEmails={wizardState.teamEmails}
-          onComplete={(result) => {
-            setBoardData(result);
-            setCurrentView("success");
-          }}
-          onError={() => setCurrentView("error")}
-        />
-      )}
+  <WizardLoading 
+    projectName={wizardState.projectName}
+    roles={wizardState.roles}
+    teamEmails={wizardState.teamEmails}
+    deadline={wizardState.deadline}      // ← ADD
+    intensity={wizardState.intensity}    // ← ADD
+    onComplete={(result) => {
+      setBoardData(result);
+      setCurrentView("success");
+    }}
+    onError={() => setCurrentView("error")}
+  />
+)}
       {currentView === "success" && boardData && (
         <WizardSuccess 
           boardUrl={boardData.boardUrl}
