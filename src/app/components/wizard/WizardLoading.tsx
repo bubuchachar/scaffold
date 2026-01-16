@@ -8,6 +8,8 @@ interface WizardLoadingProps {
   projectName: string;
   roles: string[];
   teamEmails: string;
+  deadline?: Date;      // ← ADD
+  intensity?: string;   // ← ADD
   onComplete: (result: BoardCreationResult) => void;
   onError: () => void;
 }
@@ -16,6 +18,8 @@ export const WizardLoading = ({
   projectName, 
   roles, 
   teamEmails,
+  deadline,    // ← ADD
+  intensity,   // ← ADD
   onComplete, 
   onError 
 }: WizardLoadingProps) => {
@@ -42,7 +46,7 @@ export const WizardLoading = ({
         // Step 3: Creating cards (this is where the actual API call happens)
         setCurrentStep(3);
         
-        const result = await createCompleteBoard(projectName, roles, teamEmails);
+        const result = await createCompleteBoard(projectName, roles, teamEmails, deadline, intensity);
         
         if (!mounted) return;
 
