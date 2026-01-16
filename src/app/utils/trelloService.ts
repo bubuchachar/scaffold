@@ -43,27 +43,26 @@ export const checkExistingAuth = (): Promise<boolean> => {
     }
 
     window.Trello.authorize({
-      interactive: false,  // Don't show popup, just check token
-      name: 'Scaffold - UX Workflow Installer',
-      type: 'popup',
-      scope: {
-        read: true,
-        write: true,
-      },
-      expiration: '1day',
-      return_url: window.location.origin,
-      success: () => {
-        console.log('✅ Silent auth check: Already authorized!');
-        resolve(true);
-      },
-      error: () => {
-        console.log('ℹ️ Silent auth check: Not authorized yet');
-        resolve(false);
-      }
-    });
-  });
-};
+  interactive: false,
+  name: 'Scaffold - UX Workflow Installer',
+  type: 'popup',
+  scope: {
+    read: true,
+    write: true,
+  },
+  expiration: '1day',
+  // return_url: window.location.origin,  ← REMOVE THIS LINE!
+  success: () => {
+    console.log('✅ Silent auth check: Already authorized!');
+    resolve(true);
+  },
+  error: () => {
+    console.log('ℹ️ Silent auth check: Not authorized yet');
+    resolve(false);
+  }
+});
 
+    
 // Authorization
 export const authorizeTrello = (): Promise<boolean> => {
   return new Promise((resolve, reject) => {
@@ -73,25 +72,23 @@ export const authorizeTrello = (): Promise<boolean> => {
     }
 
     window.Trello.authorize({
-      name: 'Scaffold - UX Workflow Installer',
-      type: 'popup',
-      scope: {
-        read: true,
-        write: true,
-      },
-      expiration: '1day',
-      return_url: window.location.origin,
-      success: () => {
-        console.log('✅ Trello authorization successful');
-        resolve(true);
-      },
-      error: (error?: Error) => {
-        console.error('❌ Trello authorization failed:', error);
-        reject(error);
-      }
-    });
-  });
-};
+  name: 'Scaffold - UX Workflow Installer',
+  type: 'popup',
+  scope: {
+    read: true,
+    write: true,
+  },
+  expiration: '1day',
+  // return_url: window.location.origin,  ← REMOVE THIS LINE!
+  success: () => {
+    console.log('✅ Trello authorization successful');
+    resolve(true);
+  },
+  error: (error?: Error) => {
+    console.error('❌ Trello authorization failed:', error);
+    reject(error);
+  }
+});
 
 // Check if already authorized
 export const isAuthorized = (): boolean => {
