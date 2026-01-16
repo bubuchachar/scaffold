@@ -10,11 +10,12 @@ declare global {
       authorize: (options: {
         name: string;
         type?: string;
+        interactive?: boolean;
         scope: { read: string; write: string } | { read: boolean; write: boolean };
         expiration: string;
         return_url?: string;
         success: () => void;
-        error: (error: Error) => void;
+        error: (error?: Error) => void;
       }) => void;
       post: (path: string, data?: any) => Promise<any>;
       get: (path: string) => Promise<any>;
@@ -33,6 +34,36 @@ export interface BoardCreationResult {
   labelsCreated: number;
 }
 
+// Silent authorization check (no popup)
+export const checkExistingAuth = (): Promise<boolean> => {
+  return new Promise((resolve) => {
+    if (!window.Trello) {
+      resolve(false);
+      return;
+    }
+
+    window.Trello.authorize({
+      interactive: false,  // Don't show popup, just check token
+      name: 'Scaffold - UX Workflow Installer',
+      type: 'popup',
+      scope: {
+        read: true,
+        write: true,
+      },
+      expiration: '1day',
+      return_url: window.location.origin,
+      success: () => {
+        console.log('✅ Silent auth check: Already authorized!');
+        resolve(true);
+      },
+      error: () => {
+        console.log('ℹ️ Silent auth check: Not authorized yet');
+        resolve(false);
+      }
+    });
+  });
+};
+
 // Authorization
 export const authorizeTrello = (): Promise<boolean> => {
   return new Promise((resolve, reject) => {
@@ -48,13 +79,13 @@ export const authorizeTrello = (): Promise<boolean> => {
         read: true,
         write: true,
       },
-      expiration: 'never',  // Test if parameter works at all
+      expiration: '1day',
       return_url: window.location.origin,
       success: () => {
         console.log('✅ Trello authorization successful');
         resolve(true);
       },
-      error: (error: Error) => {
+      error: (error?: Error) => {
         console.error('❌ Trello authorization failed:', error);
         reject(error);
       }
