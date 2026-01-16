@@ -12,7 +12,7 @@ import { WizardSuccess } from "./components/wizard/WizardSuccess";
 import { WizardError } from "./components/wizard/WizardError";
 import { useState, useEffect } from "react";
 import { Button } from "./components/ui/button";
-import { isAuthorized } from "./utils/trelloService";
+import { checkExistingAuth } from "./utils/trelloService";
 
 type View = "landing" | "styleguide" | "wizard-2" | "wizard-3" | "wizard-4" | "wizard-5" | "wizard-6" | "preview" | "trello-auth" | "loading" | "success" | "error";
 
@@ -53,44 +53,53 @@ function App() {
   // Board creation result
   const [boardData, setBoardData] = useState<BoardData | null>(null);
   
-// Check if user just came back from Trello authorization
-useEffect(() => {
-  const checkAuthAndRestore = () => {
-    // Check if authorized AND we have saved state
-    if (isAuthorized() && localStorage.getItem('scaffold_wizard_state')) {
-      try {
-        console.log('🔄 Detected authorization, restoring state...');
-        // Restore wizard state
-        const savedState = JSON.parse(localStorage.getItem('scaffold_wizard_state')!);
-        setWizardState(savedState);
-        
-        // Clear saved state
-        localStorage.removeItem('scaffold_wizard_state');
-        
-        // Go directly to loading screen
-        setCurrentView('loading');
-      } catch (err) {
-        console.error('Failed to restore wizard state:', err);
-        localStorage.removeItem('scaffold_wizard_state');
+  // Check if user just came back from Trello authorization
+  useEffect(() => {
+    const checkAuthAndRestore = async () => {
+      console.log('🔄 Checking for existing authorization...');
+      
+      // First, do silent auth check (handles token from redirect)
+      const hasAuth = await checkExistingAuth();
+      console.log('   - Silent auth result:', hasAuth);
+      
+      // Then check for saved state
+      const hasSavedState = !!localStorage.getItem('scaffold_wizard_state');
+      console.log('   - Has saved state:', hasSavedState);
+      
+      if (hasAuth && hasSavedState) {
+        try {
+          console.log('✅ BOTH CONDITIONS MET! Restoring...');
+          const savedState = JSON.parse(localStorage.getItem('scaffold_wizard_state')!);
+          setWizardState(savedState);
+          
+          localStorage.removeItem('scaffold_wizard_state');
+          
+          setCurrentView('loading');
+          console.log('   - Redirecting to loading screen');
+        } catch (err) {
+          console.error('❌ Failed to restore:', err);
+          localStorage.removeItem('scaffold_wizard_state');
+        }
+      } else {
+        console.log('ℹ️ Conditions not met, staying on current view');
       }
-    }
-  };
+    };
 
-  // Check on mount
-  checkAuthAndRestore();
-  
-  // Also check when window regains focus (user returns from popup)
-  const handleFocus = () => {
-    console.log('👀 Window focused, checking auth...');
+    // Check on mount
     checkAuthAndRestore();
-  };
-  
-  window.addEventListener('focus', handleFocus);
-  
-  return () => {
-    window.removeEventListener('focus', handleFocus);
-  };
-}, []);
+    
+    // Also check when window regains focus (for popup mode)
+    const handleFocus = () => {
+      console.log('👀 Window focused, checking auth...');
+      checkAuthAndRestore();
+    };
+    
+    window.addEventListener('focus', handleFocus);
+    
+    return () => {
+      window.removeEventListener('focus', handleFocus);
+    };
+  }, []);
   
   // Update wizard state helper
   const updateWizardState = (updates: Partial<WizardState>) => {
