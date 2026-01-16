@@ -297,10 +297,10 @@ export const createCompleteBoard = async (
     console.log('✅ Cards created:', cards.length);
 
     // 6. Create "Read me first" card in Admin
-    console.log('📖 Creating "Read me first" card...');
-    const readMeCard = await window.Trello.post('/cards', {
-      name: '📖 Read me first',
-      desc: `# Welcome to your UX project board!
+console.log('📖 Creating "Read me first" card...');
+await window.Trello.post('/cards', {
+  name: '📖 Read me first',
+  desc: `# Welcome to your UX project board!
 
 This board was created by Scaffold to give your team a ready-to-run workflow.
 
@@ -339,21 +339,16 @@ This helps with handoffs and grading!
 **Questions?** Ask in card comments so context stays together.
 
 Let's ship this! 🚀`,
-      idList: listMap['Admin'],
-      pos: 'top'
-    });
-
-    if (phaseDates['Admin']) {
-      await window.Trello.post(`/cards/${readMeCard.id}`, {
-        due: phaseDates['Admin']
-      });
-    }
+  idList: listMap['Admin'],
+  pos: 'top',
+  due: phaseDates['Admin'] || null  // ← ADD DUE DATE HERE!
+});
 
     // 7. Create "Team Agreement" card in Admin
-    console.log('🤝 Creating Team Agreement card...');
-    const teamAgreementCard = await window.Trello.post('/cards', {
-      name: 'Define team agreement',
-      desc: `**Team Agreement (10 minutes, do once)**
+console.log('🤝 Creating Team Agreement card...');
+await window.Trello.post('/cards', {
+  name: 'Define team agreement',
+  desc: `**Team Agreement (10 minutes, do once)**
 Fill this once. Set communication norms, meeting cadence, and decision rules.
 
 ---
@@ -399,10 +394,11 @@ Fill this once. Set communication norms, meeting cadence, and decision rules.
 * Our quality bar for final submission is: _____
 
 **Last updated:** [date]`,
-      idList: listMap['Admin'],
-      idLabels: [labelMap['Everyone']],
-      pos: 'bottom'
-    });
+  idList: listMap['Admin'],
+  idLabels: [labelMap['Everyone']],
+  pos: 'bottom',
+  due: phaseDates['Admin'] || null  // ← ADD DUE DATE HERE!
+});
 
     // Add checklist to Team Agreement card
     const checklistResponse = await window.Trello.post(`/cards/${teamAgreementCard.id}/checklists`, {
@@ -432,10 +428,10 @@ Fill this once. Set communication norms, meeting cadence, and decision rules.
     }
 
     // 8. Create Decision Log card
-    console.log('📋 Creating Decision Log card...');
-    const decisionLogCard = await window.Trello.post('/cards', {
-      name: '📋 Decision Log',
-      desc: `# Decision Log
+console.log('📋 Creating Decision Log card...');
+await window.Trello.post('/cards', {
+  name: '📋 Decision Log',
+  desc: `# Decision Log
 
 Track major decisions here to maintain context.
 
@@ -461,15 +457,10 @@ Track major decisions here to maintain context.
 ## Your Decisions:
 
 (Add yours below)`,
-      idList: listMap['Admin'],
-      pos: 'bottom'
-    });
-
-    if (phaseDates['Admin']) {
-      await window.Trello.post(`/cards/${decisionLogCard.id}`, {
-        due: phaseDates['Admin']
-      });
-    }
+  idList: listMap['Admin'],
+  pos: 'bottom',
+  due: phaseDates['Admin'] || null  // ← ADD DUE DATE HERE!
+});
 
     // 9. Invite team members if provided
     if (teamEmails && teamEmails.trim()) {
