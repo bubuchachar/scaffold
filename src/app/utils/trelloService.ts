@@ -400,32 +400,6 @@ Fill this once. Set communication norms, meeting cadence, and decision rules.
   due: phaseDates['Admin'] || null  // ← ADD DUE DATE HERE!
 });
 
-    // Add checklist to Team Agreement card
-    const checklistResponse = await window.Trello.post(`/cards/${teamAgreementCard.id}/checklists`, {
-      name: 'Agreement setup'
-    });
-
-    const checklistItems = [
-      'Fill in chat channel + file location',
-      'Agree response time expectation',
-      'Set meeting cadence',
-      'Confirm Definition of Done rules',
-      'Confirm decision rule (comment window)',
-      'Add any team-specific add-ons',
-      'PM: pin or star this card (so it stays findable)'
-    ];
-
-    for (const item of checklistItems) {
-      await window.Trello.post(`/checklists/${checklistResponse.id}/checkItems`, {
-        name: item
-      });
-    }
-
-    if (phaseDates['Admin']) {
-      await window.Trello.post(`/cards/${teamAgreementCard.id}`, {
-        due: phaseDates['Admin']
-      });
-    }
 
     // 8. Create Decision Log card
 console.log('📋 Creating Decision Log card...');
