@@ -21,13 +21,6 @@ export const baseCards: Card[] = [
     role: 'base'
   },
   {
-    title: "Set up decision log",
-    phase: "Admin",
-    description: "Create system for tracking key decisions with rationale",
-    order: 2,
-    role: 'base'
-  },
-  {
     title: "Project retrospective",
     phase: "Delivery",
     description: "Reflect on what worked, what didn't, lessons learned",
