@@ -28,13 +28,6 @@ export const baseCards: Card[] = [
     role: 'base'
   },
   {
-    title: "Define team agreement",
-    phase: "Admin",
-    description: "Document communication norms, meeting cadence, conflict resolution",
-    order: 3,
-    role: 'base'
-  },
-  {
     title: "Project retrospective",
     phase: "Delivery",
     description: "Reflect on what worked, what didn't, lessons learned",
