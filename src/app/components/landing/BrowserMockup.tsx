@@ -18,7 +18,7 @@ export const BrowserMockup = () => {
         
 {/* Real Trello Board Screenshot */}
 <img 
-  src="public/trello-board-preview.png" 
+  src="/trello-board-preview.png" 
   alt="Complete UX project board with 8 phases and pre-written tasks"
   className="w-full h-full object-cover"
 />
