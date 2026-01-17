@@ -9,7 +9,7 @@ export const BrowserMockup = () => {
           <div className="w-3 h-3 rounded-full bg-[#28c840]" />
         </div>
         <div className="ml-4 flex-1 max-w-xl mx-auto bg-white h-6 rounded-md border border-[#e2e8f0] flex items-center px-3">
-          <span className="text-[#94a3b8] text-xs font-medium">trello.com/b/abc123/campus-food-delivery-app</span>
+          <span className="text-[#94a3b8] text-xs font-medium">trello.com/b/abc123/UXproject>
         </div>
       </div>
       
