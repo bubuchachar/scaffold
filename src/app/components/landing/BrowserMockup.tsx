@@ -16,13 +16,12 @@ export const BrowserMockup = () => {
       {/* Screenshot Placeholder */}
       <div className="bg-[#f4f5f7] aspect-[16/10] w-full relative overflow-hidden flex items-center justify-center">
         
-        {/* ADD YOUR SCREENSHOT HERE */}
-        {/* Uncomment this when you have the screenshot: */}
-        {/* <img 
-          src="/path-to-your-trello-screenshot.png" 
-          alt="UX Team Kit Trello Board"
-          className="w-full h-full object-cover"
-        /> */}
+ {/* Real Trello Board Screenshot */}
+<img 
+  src="/trello-board-preview.png" 
+  alt="Complete UX project board with 8 phases and pre-written tasks"
+  className="w-full h-full object-cover"
+/>
         
         {/* Placeholder Content (Remove when screenshot added) */}
         <div className="absolute inset-0 flex flex-col items-center justify-center p-8 text-center">
