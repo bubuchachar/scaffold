@@ -18,43 +18,10 @@ export const BrowserMockup = () => {
         
  {/* Real Trello Board Screenshot */}
 <img 
-  src="/trello-board-preview.png" 
+  src="public/trello-board-preview.png" 
   alt="Complete UX project board with 8 phases and pre-written tasks"
   className="w-full h-full object-cover"
 />
-        
-        {/* Placeholder Content (Remove when screenshot added) */}
-        <div className="absolute inset-0 flex flex-col items-center justify-center p-8 text-center">
-          {/* Trello Board Icon */}
-          <div className="w-24 h-24 bg-gradient-to-br from-[#0079BF] to-[#005A8E] rounded-2xl flex items-center justify-center mb-6 shadow-lg">
-            <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <rect x="3" y="3" width="7" height="13" rx="1" strokeWidth="2" />
-              <rect x="14" y="3" width="7" height="9" rx="1" strokeWidth="2" />
-            </svg>
-          </div>
-          
-          {/* Instructions */}
-          <div className="max-w-md">
-            <h3 className="font-serif font-bold text-2xl text-[#1a2332] mb-3">
-              Screenshot Placeholder
-            </h3>
-            <p className="text-[#4a5568] text-base leading-relaxed mb-6">
-              Replace this with an actual Trello board screenshot showing the 8 phases, cards, and labels.
-            </p>
-            
-            {/* Specs Box */}
-            <div className="bg-white/80 backdrop-blur-sm rounded-xl p-4 border border-[#e2e8f0] text-left">
-              <p className="text-[#1a2332] font-semibold text-sm mb-2">Screenshot Specs:</p>
-              <ul className="text-[#4a5568] text-sm space-y-1">
-                <li>• <span className="font-medium">Dimensions:</span> 1600x1000px (16:10 ratio)</li>
-                <li>• <span className="font-medium">Format:</span> PNG or JPG</li>
-                <li>• <span className="font-medium">Show:</span> Board view with all 8 phases visible</li>
-                <li>• <span className="font-medium">Capture:</span> 2-3 cards per phase + labels</li>
-                <li>• <span className="font-medium">Zoom:</span> 90-100% (readable card titles)</li>
-              </ul>
-            </div>
-          </div>
-        </div>
         
         {/* Subtle gradient overlay (keep for aesthetic) */}
         <div className="absolute inset-0 bg-gradient-to-t from-[#f4f5f7]/20 to-transparent pointer-events-none"></div>
