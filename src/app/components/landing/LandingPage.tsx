@@ -32,7 +32,7 @@ export const LandingPage = ({ onStart }: LandingPageProps) => {
       
       {/* Simple Footer */}
       <footer className="py-12 text-center text-[#4a5568] text-sm font-['Inter',sans-serif] border-t border-[#e2e8f0]">
-        <p>&copy; 2024 UX Team Kit. Built for students.</p>
+        <p>&copy; 2026 UX Team Kit. Built for students.</p>
       </footer>
     </div>
   );
