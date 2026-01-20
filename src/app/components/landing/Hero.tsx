@@ -9,6 +9,9 @@ interface HeroProps {
 }
 
 export const Hero = ({ projectName = "", onProjectNameChange, onStart }: HeroProps) => {
+  // Validation: Check if project name is not empty (after trimming whitespace)
+  const isValid = projectName.trim().length > 0;
+
   return (
     <section className="pt-20 pb-20 px-6 bg-[#f8fafc] text-center overflow-hidden">
       <div className="container mx-auto max-w-5xl flex flex-col items-center">
@@ -76,7 +79,12 @@ export const Hero = ({ projectName = "", onProjectNameChange, onStart }: HeroPro
           
           <Button 
             onClick={onStart}
-            className="w-full h-auto py-4 bg-gradient-to-r from-[#8B72FF] to-[#6A4FFF] hover:opacity-90 hover:translate-y-[-1px] transition-all text-white text-lg font-semibold rounded-xl shadow-[0_4px_14px_rgba(106,79,255,0.3)] border-none mb-4"
+            disabled={!isValid}
+            className={`w-full h-auto py-4 transition-all text-lg font-semibold rounded-xl border-none mb-4 ${
+              isValid
+                ? 'bg-gradient-to-r from-[#8B72FF] to-[#6A4FFF] hover:opacity-90 hover:translate-y-[-1px] text-white shadow-[0_4px_14px_rgba(106,79,255,0.3)] cursor-pointer'
+                : 'bg-[#e2e8f0] text-[#94a3b8] cursor-not-allowed shadow-none'
+            }`}
           >
             Create my Trello board →
           </Button>
