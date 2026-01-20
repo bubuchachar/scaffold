@@ -2,9 +2,9 @@ import { Card } from "../ui/card";
 
 const features = [
   {
-    icon: "/icons/proof-of-work.svg", 
-    title: "Proof-of-Work Built In",
-    description: "Pre-fills Definition of Done + artifact link placeholders for every deliverable. No 'almost done' allowed."
+    icon: "/icons/role-based.svg", 
+    title: "Role-Based Cards",
+    description: "Installs cards filtered by your team composition (PM, UXR, UI). Everyone knows what they own."
   },
   {
     icon: "/icons/smart-timeline.svg", 
@@ -12,9 +12,9 @@ const features = [
     description: "Automatically calculates due dates across all phases based on your deadline and intensity level."
   },
   {
-    icon: "/icons/role-based.svg", 
-    title: "Role-Based Cards",
-    description: "Installs cards filtered by your team composition (PM, UXR, UI). Everyone knows what they own."
+    icon: "/icons/proof-of-work.svg", 
+    title: "Proof-of-Work Built In",
+    description: "Pre-fills Definition of Done + artifact link placeholders for every deliverable. No 'almost done' allowed."
   }
 ];
 
