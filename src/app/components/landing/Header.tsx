@@ -10,9 +10,12 @@ export const Header = () => {
         />
       </div>
       
-      <button className="h-12 px-8 text-[16px] font-semibold text-white bg-[#1a2332] hover:bg-[#2a3342] rounded-xl transition-colors">
-        Get Started
-      </button>
+      <a 
+        href="#features" 
+        className="h-12 px-8 text-[16px] font-semibold text-[#4a5568] hover:text-[#1a2332] transition-colors flex items-center"
+      >
+        How it works
+      </a>
     </header>
   );
 };
