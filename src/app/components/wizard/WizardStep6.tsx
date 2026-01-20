@@ -18,7 +18,8 @@ export const WizardStep6 = ({ initialEmails = "", onNext, onBack }: WizardStep6P
 
   const handleNext = () => {
     if (onNext) {
-      onNext(emails);
+      // Trim the emails string before passing it
+      onNext(emails.trim());
     }
   };
 
@@ -96,7 +97,6 @@ export const WizardStep6 = ({ initialEmails = "", onNext, onBack }: WizardStep6P
               <ArrowRight className="w-4 h-4 ml-2" />
             </Button>
           </div>
-
         </motion.div>
       </main>
     </div>
