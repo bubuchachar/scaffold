@@ -23,10 +23,13 @@ export const WizardStep2 = ({ initialDate, onNext, onBack }: WizardStep2Props) =
   const [date, setDate] = React.useState<Date | undefined>(initialDate);
 
   const handleNext = () => {
-    if (onNext) {
+    if (onNext && date) {
       onNext(date);
     }
   };
+
+  // Validation: Check if a date is selected
+  const isValid = date !== undefined;
 
   return (
     <div className="min-h-screen bg-[#f8fafc] font-sans text-[#1a2332] flex flex-col">
@@ -104,7 +107,13 @@ export const WizardStep2 = ({ initialDate, onNext, onBack }: WizardStep2Props) =
             
             <Button 
               onClick={handleNext}
-              className="flex-1 h-[52px] text-[16px] font-semibold text-white bg-gradient-to-br from-[#8B72FF] to-[#6A4FFF] hover:opacity-90 hover:translate-y-[-1px] transition-all rounded-xl shadow-[0_4px_14px_rgba(106,79,255,0.3)]"
+              disabled={!isValid}
+              className={cn(
+                "flex-1 h-[52px] text-[16px] font-semibold rounded-xl transition-all shadow-[0_4px_14px_rgba(106,79,255,0.3)]",
+                isValid
+                  ? "text-white bg-gradient-to-br from-[#8B72FF] to-[#6A4FFF] hover:opacity-90 hover:translate-y-[-1px] cursor-pointer"
+                  : "text-[#94a3b8] bg-[#e2e8f0] cursor-not-allowed shadow-none"
+              )}
             >
               Next
               <ArrowRight className="w-4 h-4 ml-2" />
