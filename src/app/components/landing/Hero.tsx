@@ -21,7 +21,7 @@ export const Hero = ({ projectName = "", onProjectNameChange, onStart }: HeroPro
           className="inline-flex items-center px-4 py-1.5 rounded-full bg-[#6A4FFF] mb-8"
         >
           <span className="text-white text-xs font-bold tracking-wider uppercase font-['Inter',sans-serif]">
-            Setup wizard for student PMs
+            Setup wizard for student PM
           </span>
         </motion.div>
 
