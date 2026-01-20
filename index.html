@@ -3,19 +3,32 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Updated Title & Meta -->
     <title>Scaffold - UX Workflow Installer for Trello</title>
+    <meta name="description" content="Install a ready-to-run UX workflow in 2 minutes. Turn blank Trello boards into complete UX projects with 8 phases, role-based tasks, and checklists." />
+    
+    <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href="/logomark.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#6A4FFF">
+    
+    <!-- Open Graph (for social sharing) -->
+    <meta property="og:title" content="Scaffold - UX Workflow Installer" />
+    <meta property="og:description" content="Turn blank Trello boards into ready-to-run UX projects in 6 questions" />
+    <meta property="og:type" content="website" />
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Scaffold - UX Workflow Installer" />
+    <meta name="twitter:description" content="Turn blank Trello boards into ready-to-run UX projects in 6 questions" />
   </head>
-
   <body>
     <div id="root"></div>
-    
-    <!-- Load jQuery FIRST (required by Trello) -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    
-    <!-- Then load Trello client -->
-    <script src="https://trello.com/1/client.js?key=3561558d3c24e495d9d9e456cec41926"></script>
-    
-    <!-- Finally load your React app -->
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
