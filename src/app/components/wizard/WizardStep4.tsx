@@ -36,14 +36,18 @@ interface WizardStep4Props {
   onBack?: () => void;
 }
 
-export const WizardStep4 = ({ initialIntensity = "standard", onNext, onBack }: WizardStep4Props) => {
+export const WizardStep4 = ({ initialIntensity = "", onNext, onBack }: WizardStep4Props) => {
+  // Changed: Default to empty string, no pre-selection
   const [selectedIntensity, setSelectedIntensity] = React.useState<string>(initialIntensity);
 
   const handleNext = () => {
-    if (onNext) {
+    if (onNext && selectedIntensity) {
       onNext(selectedIntensity);
     }
   };
+
+  // Validation: Check if an intensity is selected
+  const isValid = selectedIntensity !== "";
 
   return (
     <div className="min-h-screen bg-[#f8fafc] font-sans text-[#1a2332] flex flex-col">
@@ -104,10 +108,7 @@ export const WizardStep4 = ({ initialIntensity = "standard", onNext, onBack }: W
                   
                   {/* Text Content */}
                   <div>
-                    <h3 className={cn(
-                      "text-[16px] font-semibold font-['Inter',sans-serif] mb-1",
-                      isSelected ? "text-[#1a2332]" : "text-[#1a2332]"
-                    )}>
+                    <h3 className="text-[16px] font-semibold font-['Inter',sans-serif] text-[#1a2332] mb-1">
                       {option.title}
                     </h3>
                     <p className={cn(
@@ -135,7 +136,13 @@ export const WizardStep4 = ({ initialIntensity = "standard", onNext, onBack }: W
             
             <Button 
               onClick={handleNext}
-              className="flex-1 h-[52px] text-[16px] font-semibold text-white bg-gradient-to-br from-[#8B72FF] to-[#6A4FFF] hover:opacity-90 hover:translate-y-[-1px] transition-all rounded-xl shadow-[0_4px_14px_rgba(106,79,255,0.3)]"
+              disabled={!isValid}
+              className={cn(
+                "flex-1 h-[52px] text-[16px] font-semibold rounded-xl transition-all shadow-[0_4px_14px_rgba(106,79,255,0.3)]",
+                isValid
+                  ? "text-white bg-gradient-to-br from-[#8B72FF] to-[#6A4FFF] hover:opacity-90 hover:translate-y-[-1px] cursor-pointer"
+                  : "text-[#94a3b8] bg-[#e2e8f0] cursor-not-allowed shadow-none"
+              )}
             >
               Next
               <ArrowRight className="w-4 h-4 ml-2" />
