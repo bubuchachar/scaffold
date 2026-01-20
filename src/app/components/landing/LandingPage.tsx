@@ -10,13 +10,13 @@ interface LandingPageProps {
 
 export const LandingPage = ({ onStart }: LandingPageProps) => {
   const [projectName, setProjectName] = useState("");
-
+  
   const handleStart = () => {
     if (onStart) {
       onStart(projectName || "Your Project");
     }
   };
-
+  
   return (
     <div className="min-h-screen bg-[#f8fafc] font-sans selection:bg-[#8B72FF] selection:text-white">
       <Header />
@@ -30,9 +30,9 @@ export const LandingPage = ({ onStart }: LandingPageProps) => {
         <TrustBar />
       </main>
       
-      {/* Simple Footer */}
+      {/* Updated Footer */}
       <footer className="py-12 text-center text-[#4a5568] text-sm font-['Inter',sans-serif] border-t border-[#e2e8f0]">
-        <p>&copy; 2026 UX Team Kit. Built for students.</p>
+        <p>&copy; 2026 Scaffold. Built for student UX teams.</p>
       </footer>
     </div>
   );
