@@ -21,7 +21,7 @@ export const Hero = ({ projectName = "", onProjectNameChange, onStart }: HeroPro
           className="inline-flex items-center px-4 py-1.5 rounded-full bg-[#6A4FFF] mb-8"
         >
           <span className="text-white text-xs font-bold tracking-wider uppercase font-['Inter',sans-serif]">
-            One-time installer for Trello
+            Setup wizard for student PMs
           </span>
         </motion.div>
 
@@ -32,7 +32,7 @@ export const Hero = ({ projectName = "", onProjectNameChange, onStart }: HeroPro
           transition={{ duration: 0.5, delay: 0.1 }}
           className="font-['Fraunces',serif] font-bold text-5xl md:text-[64px] leading-[1.1] text-[#1a2332] mb-6 max-w-4xl tracking-tight"
         >
-          Turn a blank Trello board into a ready-to-run UX project in 6 questions
+          Start your UX project in Trello in 6 questions.
         </motion.h1>
 
         {/* Subtitle */}
@@ -42,7 +42,7 @@ export const Hero = ({ projectName = "", onProjectNameChange, onStart }: HeroPro
           transition={{ duration: 0.5, delay: 0.2 }}
           className="font-['Inter',sans-serif] text-lg md:text-xl text-[#4a5568] mb-10 max-w-2xl leading-relaxed"
         >
-          No more blank-board paralysis. Answer 6 questions and get a complete Trello board with 8 phases, role-based tasks, and ready-to-use checklists.
+          Stop guessing what to do next. Scaffold installs phases and role-based tasks so you can assign work immediately and get moving.
         </motion.p>
 
         {/* Time Badge - Moved Up */}
